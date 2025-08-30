@@ -1,3 +1,22 @@
+# Poll App
+
+Scaffolded initial structure for auth and polls using Next.js App Router and Shadcn-style UI primitives.
+
+## Structure
+
+- `app/(auth)`: Auth routes (`login`, `register`).
+- `app/(polls)`: Polls routes (`/polls`, `/polls/[id]`, `/polls/new`).
+- `components/ui`: Shadcn-style UI components (`button`, `card`, `input`, `label`).
+- `components/site-nav.tsx`: Top navigation.
+- `lib`: Shared types and validations placeholders.
+
+## Development
+
+Run dev server:
+
+```bash
+npm run dev
+```
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
