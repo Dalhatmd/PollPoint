@@ -10,6 +10,20 @@ Scaffolded initial structure for auth and polls using Next.js App Router and Sha
 - `components/site-nav.tsx`: Top navigation.
 - `lib`: Shared types and validations placeholders.
 
+## Supabase Setup
+
+1. Create a new project at [supabase.com](https://supabase.com)
+2. Get your project URL and anon key from the project settings
+3. Create a `.env.local` file in the root directory with:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. Enable Email auth in your Supabase dashboard under Authentication > Providers
+5. Configure your site URL in Authentication > URL Configuration
+
 ## Development
 
 Run dev server:
@@ -17,6 +31,15 @@ Run dev server:
 ```bash
 npm run dev
 ```
+
+## Features
+
+- User authentication (sign up, sign in, sign out)
+- Protected routes with middleware
+- Create and vote on polls
+- Persistent poll storage with localStorage
+- Responsive UI with Shadcn components
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

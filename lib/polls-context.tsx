@@ -1,12 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
 import type { Poll } from "@/lib/types";
 import { generateId } from "@/lib/utils";
+import { useAuth } from "./auth-context";
 
 type NewPollInput = {
   question: string;
-  authorId?: string;
   options: { text: string }[];
 };
 
@@ -23,6 +23,7 @@ const STORAGE_KEY = "polls:v1";
 export function PollsProvider({ children }: { children: React.ReactNode }) {
   const [polls, setPolls] = useState<Poll[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     try {
@@ -44,21 +45,21 @@ export function PollsProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   }, [polls, hydrated]);
 
-  const addPoll: PollsContextValue["addPoll"] = (data) => {
+  const addPoll = useCallback((data: NewPollInput) => {
     const id = generateId();
     const now = new Date().toISOString();
     const poll: Poll = {
       id,
       question: data.question,
       options: data.options.map((o, idx) => ({ id: `${id}-${idx}`, text: o.text, votes: 0 })),
-      authorId: data.authorId,
+      authorId: user?.id,
       createdAt: now,
     };
     setPolls((prev) => [poll, ...prev]);
     return id;
-  };
+  }, [user?.id]);
 
-  const voteOption: PollsContextValue["voteOption"] = (pollId, optionId) => {
+  const voteOption = useCallback((pollId: string, optionId: string) => {
     setPolls((prev) =>
       prev.map((p) =>
         p.id !== pollId
@@ -71,9 +72,9 @@ export function PollsProvider({ children }: { children: React.ReactNode }) {
             }
       )
     );
-  };
+  }, []);
 
-  const value = useMemo(() => ({ polls, addPoll, voteOption }), [polls]);
+  const value = useMemo(() => ({ polls, addPoll, voteOption }), [polls, addPoll, voteOption]);
   return <PollsContext.Provider value={value}>{children}</PollsContext.Provider>;
 }
 
