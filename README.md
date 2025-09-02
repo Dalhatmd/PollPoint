@@ -23,6 +23,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 4. Enable Email auth in your Supabase dashboard under Authentication > Providers
 5. Configure your site URL in Authentication > URL Configuration
+6. Run the SQL schema from `supabase-schema.sql` in your Supabase SQL Editor to create the necessary tables
 
 ## Development
 
@@ -37,7 +38,8 @@ npm run dev
 - User authentication (sign up, sign in, sign out)
 - Protected routes with middleware
 - Create and vote on polls
-- Persistent poll storage with localStorage
+- Persistent poll storage with Supabase database
+- Server Actions for data mutations
 - Responsive UI with Shadcn components
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).

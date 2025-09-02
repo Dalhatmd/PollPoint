@@ -51,9 +51,14 @@ export function PollsProvider({ children }: { children: React.ReactNode }) {
     const poll: Poll = {
       id,
       question: data.question,
-      options: data.options.map((o, idx) => ({ id: `${id}-${idx}`, text: o.text, votes: 0 })),
-      authorId: user?.id,
-      createdAt: now,
+      options: data.options.map((o, idx) => ({ 
+        id: `${id}-${idx}`, 
+        text: o.text, 
+        order_index: idx,
+        votes: 0 
+      })),
+      author_id: user?.id,
+      created_at: now,
     };
     setPolls((prev) => [poll, ...prev]);
     return id;
