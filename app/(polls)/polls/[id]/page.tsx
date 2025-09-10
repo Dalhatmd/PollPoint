@@ -25,7 +25,7 @@ export default async function PollDetailPage({ params }: { params: { id: string 
       <CardHeader>
         <CardTitle>{poll.question}</CardTitle>
         <CardDescription>
-          {totalVotes} vote{totalVotes === 1 ? "" : "s"}
+           {totalVotes} vote{totalVotes === 1 ? "" : "s"}
         </CardDescription>
       </CardHeader>
       <CardContent>

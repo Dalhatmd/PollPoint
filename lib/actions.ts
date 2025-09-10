@@ -73,11 +73,21 @@ async function insertPollOptions(
   supabase: Awaited<ReturnType<typeof getSupabase>>,
   pollId: string,
   options: string[]
-) {
-  const records = options.map((text, index) => ({ poll_id: pollId, text, order_index: index }));
-  const { error } = await supabase.from("poll_options").insert(records);
+): Promise<void> {
+  if (!options.length) return;
+
+  const records = options.map((text, index) => ({
+    poll_id: pollId,
+    text,
+    order_index: index,
+  }));
+
+  const { error } = await supabase
+    .from("poll_options")
+    .insert(records);
+
   if (error) {
-    throw actionError("Failed to create poll options");
+    throw actionError(`Failed to create poll options: ${error.message}`);
   }
 }
 
